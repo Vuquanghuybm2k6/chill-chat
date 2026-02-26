@@ -10,12 +10,14 @@ module.exports.register = (req, res) => {
 module.exports.registerPost = async (req, res) => {
   const emailExist = await User.findOne({email: req.body.email, deleted: false})
   if(emailExist){
-    res.redirect(req.get("Referer"))
+    req.flash("error", "Emai đã tồn tại")
+    return res.redirect(req.get("Referer"))
   }
   else{
     req.body.password = md5(req.body.password)
     const user = new User(req.body)
     await user.save()
+    req.flash("success", "Đăng kí tài khoản thành công")
     res.redirect("/")
   }
 }

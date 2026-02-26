@@ -10,6 +10,22 @@ const database = require("./config/database")
 database.connect()
 // End Kết nối với db
 
+// Flash
+const session = require("express-session")
+const cookieParser = require("cookie-parser")
+var flash = require('express-flash') 
+app.use(cookieParser('keyboard cat'));
+app.use(session({ 
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 60000
+  }
+}));
+app.use(flash());
+// End Flash
+
 // Giả phương thức
 var methodOverride = require('method-override')
 app.use(methodOverride('_method'))
