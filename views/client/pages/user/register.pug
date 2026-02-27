@@ -10,6 +10,7 @@ block main
         form(
           action="/user/register"
           method="POST"
+          enctype = "multipart/form-data"
         )
           div(class="form-group")
             label(for="fullName") Họ và tên
@@ -42,6 +43,17 @@ block main
               name="password"
               style = "width: 680px"
               required
+            )
+          div(class="form-group")
+            label(for="avatar") Ảnh đại diện 
+            input(
+              type="file"
+              class="form-control-file"
+              id="avatar"
+              name="avatar"
+              style = "width: 680px"
+              accept = "image/*"
+              upload-image-input
             )
           button(
             type="submit"
