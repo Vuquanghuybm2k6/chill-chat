@@ -34,8 +34,6 @@ app.use(methodOverride('_method'))
 // Body Parser
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended : false}))
-// app.use(express.urlencoded({ extended: true }))
-// app.use(express.json())
 // End Body Parser
 
 app.set("views", `${__dirname}/views`)

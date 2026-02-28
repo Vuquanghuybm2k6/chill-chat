@@ -18,4 +18,10 @@ router.post(
   controller.loginPost)
 router.get('/logout', controller.logout)
 router.get('/info', controller.info)
+router.get('/edit', controller.edit)
+router.patch(
+  '/edit',
+  upload.single("avatar"),
+  uploadCloud.upload,
+  controller.editPatch)
 module.exports = router

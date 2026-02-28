@@ -61,5 +61,40 @@ module.exports.logout = (req, res) => {
 
 // [GET]: /user/info
 module.exports.info = (req, res) => {
-  res.render("client/pages/user/info")
+  res.render("client/pages/user/info",{
+    pageTitle: "Thông tin cá nhân"
+  })
+}
+
+// [GET]: /user/edit
+module.exports.edit = (req, res) => {
+  res.render("client/pages/user/edit",{
+    pageTitle: "Chỉnh sửa thông tin cá nhân"
+  })
+}
+
+// [PATCH]: /user/edit
+module.exports.editPatch = async (req, res) => {
+  const user = res.locals.user
+  const emailExist = await User.findOne({_id:{
+    $ne: user._id
+  },
+    email: req.body.email,
+    deleted: false
+  })
+  if(!emailExist){
+    if(req.body.password){
+      req.body.password = md5(req.body.password)
+    }
+    else{
+      delete req.body.password
+    }
+    await User.updateOne({_id: user._id}, req.body)
+    req.flash("success", "Chỉnh sửa thông tin thành công")
+    res.redirect(req.get("Referer"))
+  }
+  else{
+    req.flash("error", "Email đã tồn tại")
+    res.redirect(req.get("Referer"))
+  }
 }
