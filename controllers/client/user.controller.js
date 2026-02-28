@@ -58,3 +58,8 @@ module.exports.logout = (req, res) => {
   res.clearCookie("tokenUser")
   res.redirect("/user/login")
 }
+
+// [GET]: /user/info
+module.exports.info = (req, res) => {
+  res.render("client/pages/user/info")
+}

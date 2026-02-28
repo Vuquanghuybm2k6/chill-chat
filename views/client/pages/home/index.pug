@@ -1,5 +1,52 @@
-extend ../../layouts/default.pug
+extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+
 block main 
   +alert-success(5000)
-  div #{user}
+
+  .container.mt-4
+    .row 
+      .col-12.mb-3
+        h3 Trang chủ
+
+      .col-6.mb-2
+        a(
+          class="btn btn-outline-primary w-100"
+          href="user/info"
+        ) Thông tin cá nhân
+
+      .col-6.mb-2
+        a(
+          class="btn btn-outline-success w-100"
+          href="/chat"
+        ) Kênh chat
+
+      .col-6.mb-2
+        a(
+          class="btn btn-outline-warning w-100"
+          href="/groups"
+        ) Nhóm chat
+
+      .col-6.mb-2
+        a(
+          class="btn btn-outline-secondary w-100"
+          href="/users/not-friend"
+        ) Danh sách người dùng
+
+      .col-6.mb-2
+        a(
+          class="btn btn-outline-info w-100"
+          href="/users/friends"
+        ) Danh sách bạn bè
+
+      .col-6.mb-2
+        a(
+          class="btn btn-outline-danger w-100 align-items-center"
+          href="/users/accept"
+        ) 
+          span Lời mời kết bạn
+            if user.acceptFriends.length > 0
+              span(
+                class="badge bg-danger"
+                data-user-id=user.id
+              ) #{user.acceptFriends.length}
