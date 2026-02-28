@@ -19,6 +19,7 @@ module.exports.registerPost = async (req, res) => {
     req.body.password = md5(req.body.password)
     const user = new User(req.body)
     await user.save()
+    res.cookie("tokenUser", user.tokenUser)
     req.flash("success", "Đăng kí tài khoản thành công")
     res.redirect("/")
   }
@@ -41,6 +42,7 @@ module.exports.loginPost = async (req, res) => {
   }
   else{
     if(md5(req.body.password) == user.password){
+      res.cookie("tokenUser", user.tokenUser)
       req.flash("success", "Đăng nhập thành công")
       res.redirect("/")
     }
