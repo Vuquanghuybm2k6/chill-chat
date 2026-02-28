@@ -36,6 +36,14 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended : false}))
 // End Body Parser
 
+const http = require("http")
+const { Server } = require("socket.io")
+// Socket io
+const server = http.createServer(app)
+const io = new Server(server)
+global._io = io
+// End Socket io
+
 app.set("views", `${__dirname}/views`)
 app.set("view engine", `pug`)
 
@@ -43,6 +51,6 @@ app.use(express.static("./public"))
 
 routeClient(app)
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

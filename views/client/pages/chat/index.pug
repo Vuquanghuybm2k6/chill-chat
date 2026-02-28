@@ -1,0 +1,31 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+block main 
+  .section-products-featured.my-5
+    .container
+      .row
+        .col-12
+          +box-head("Chat")
+      .row
+        .col-12
+          .chat
+            .inner-body
+              .inner-incoming
+                .inner-name
+                .inner-content 
+                  | Xin chào
+              .inner-outgoing 
+                .inner-content 
+                  | Hello
+            .inner-foot 
+              form(
+                class = "inner-form"
+                action = ""
+              )
+                input(
+                  type = "text"
+                  placeholder = "Nhập nội dung..."
+                  name = "content"
+                )
+                button 
+                  i.fa-solid.fa-paper-plane
