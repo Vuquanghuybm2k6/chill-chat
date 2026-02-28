@@ -1,4 +1,10 @@
-// [GET]: /user/login
+// [GET]: /home
 module.exports.index = (req, res) => {
-  res.redirect("user/login")
+  if (!req.cookies.tokenUser) {
+    return res.redirect("/user/login")
+  }
+
+  res.render("client/pages/home/index", {
+    pageTitle: "Trang chủ"
+  })
 }
