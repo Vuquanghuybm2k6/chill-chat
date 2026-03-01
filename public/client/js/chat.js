@@ -22,7 +22,7 @@ socket.on("SERVER_RETURN_MESSAGE", (data)=>{
     div.classList.add("inner-outgoing")
   }
   else{
-    div.classList.add("inner-outgoing")
+    div.classList.add("inner-incomming")
     htmlFullName = `<div class = "inner-name">${data.fullName}</div>`
   }
   div.innerHTML = 
@@ -33,3 +33,4 @@ socket.on("SERVER_RETURN_MESSAGE", (data)=>{
   body.appendChild(div)
 })
 // END SERVER_RETURN_MESSAGE
+
