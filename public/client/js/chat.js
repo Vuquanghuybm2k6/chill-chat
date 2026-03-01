@@ -11,3 +11,25 @@ if(formSendData){
   })
 }
 // END SERVER_SEND_MESSAGE
+
+// SERVER_RETURN_MESSAGE
+socket.on("SERVER_RETURN_MESSAGE", (data)=>{
+  const myId = document.querySelector("[my-id]").getAttribute("my-id")
+  const body = document.querySelector(".inner-body")
+  const div = document.createElement("div")
+  let htmlFullName = ""
+  if(myId == data.userId){
+    div.classList.add("inner-outgoing")
+  }
+  else{
+    div.classList.add("inner-outgoing")
+    htmlFullName = `<div class = "inner-name">${data.fullName}</div>`
+  }
+  div.innerHTML = 
+  `
+  ${htmlFullName}
+  <div class = "inner-content">${data.content}</div>
+  `
+  body.appendChild(div)
+})
+// END SERVER_RETURN_MESSAGE
