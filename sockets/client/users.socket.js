@@ -103,6 +103,50 @@ module.exports = async (req,res) =>{
       }
     })
 
+    // A đồng ý kết bạn với B
+    socket.on("CLIENT_ACCEPT_FRIEND", async(idB)=>{
+
+      const existUserAInB = await User.findOne({
+        _id: idB,
+        requestFriends: idA
+      })
+      if(existUserAInB){
+        await User.updateOne({
+          _id: idB
+        },{
+          $push:{
+            friendList:{  
+              user_id: idA,
+              room_chat_id: ""
+            }
+          },
+          $pull:{
+            requestFriends: idA
+          }
+        })
+      }
+
+      const existUserBInA = await User.findOne({
+        _id: idA,
+        acceptFriends: idB
+      })
+      if(existUserBInA){
+        await User.updateOne({
+          _id: idA
+        },{
+          $push:{
+            friendList:{
+              user_id: idB,
+              room_chat_id: ""
+            }
+          },
+          $pull :{
+            acceptFriends: idB
+          }
+        })
+      }
+    })
+
     
   })
 }
