@@ -28,3 +28,18 @@ module.exports.notFriend = async (req, res) => {
     users
   })
 }
+
+module.exports.request = async(req,res) =>{
+  usersSocket(req,res)
+  const myUser = await User.findOne({_id: res.locals.user.id})
+  const requestFriends = myUser.requestFriends
+  const users = await User.find({
+    _id: {$in: requestFriends},
+    deleted: false,
+    status: "active"
+  }).select("id fullName avatar")
+  res.render("client/pages/users/request",{
+    pageTile: "Lời mời đã gửi",
+    users
+  })
+}
