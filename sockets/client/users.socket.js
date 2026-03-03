@@ -69,5 +69,40 @@ module.exports = async (req,res) =>{
         })
       }
     })
+
+    // A từ chối kết bạn của B
+    socket.on("CLIENT_REFUSE_FRIEND", async(idB)=>{
+      // Kiểm tra id của A có trong requestFriends của B 
+      const existUserAInB = await User.findOne({
+        _id: idB,
+        requestFriends: idA
+      })
+      if(existUserAInB){
+        await User.updateOne({
+          _id: idB
+        },{
+          $pull:{
+            requestFriends: idA
+          }
+        })
+      }
+
+      // Kiểm tra id của B có trong accept của A
+      const existUserBInA = await User.findOne({
+        _id: idA,
+        acceptFriends: idB
+      })
+      if(existUserBInA){
+        await User.updateOne({
+          _id: idA
+        },{
+          $pull :{
+            acceptFriends: idB
+          }
+        })
+      }
+    })
+
+    
   })
 }
