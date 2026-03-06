@@ -1,4 +1,5 @@
 const User = require("../../models/user.model")
+const RoomChat = require("../../models/room-chat.model")
 module.exports = async (req,res) =>{
   _io.once('connection',  (socket)=>{
     const idA = res.locals.user.id
@@ -135,6 +136,27 @@ module.exports = async (req,res) =>{
         _id: idB,
         requestFriends: idA
       })
+      const existUserBInA = await User.findOne({
+        _id: idA,
+        acceptFriends: idB
+      })
+      let roomChat
+      if(existUserAInB && existUserBInA){
+        roomChat = new RoomChat({
+          typeRoom: "friend",
+          users: [
+            {
+              user_id: idA,
+              role: "superAdmin"
+            },
+            {
+              user_id: idB,
+              role: "superAdmin"
+            }
+          ]
+        })
+        await roomChat.save()
+      }
       if(existUserAInB){
         await User.updateOne({
           _id: idB
@@ -142,7 +164,7 @@ module.exports = async (req,res) =>{
           $push:{
             friendList:{  
               user_id: idA,
-              room_chat_id: ""
+              room_chat_id: roomChat.id
             }
           },
           $pull:{
@@ -151,10 +173,7 @@ module.exports = async (req,res) =>{
         })
       }
 
-      const existUserBInA = await User.findOne({
-        _id: idA,
-        acceptFriends: idB
-      })
+      
       if(existUserBInA){
         await User.updateOne({
           _id: idA
@@ -162,7 +181,7 @@ module.exports = async (req,res) =>{
           $push:{
             friendList:{
               user_id: idB,
-              room_chat_id: ""
+              room_chat_id: roomChat.id
             }
           },
           $pull :{
@@ -170,6 +189,7 @@ module.exports = async (req,res) =>{
           }
         })
       }
+
     })
 
     
