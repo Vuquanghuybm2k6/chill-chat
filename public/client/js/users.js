@@ -49,3 +49,18 @@ if(listBtnAcceptFriend.length>0){
   })
 }
 // End Accept Friend Request
+
+// SERVER_RETURN_LENGTH_ACCEPT_FRIEND
+socket.on("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", (data)=>{
+  console.log("Nhan duoc:",data)
+  const badgeUsersAccept = document.querySelector("[badge-users-accept]")
+
+  if(!badgeUsersAccept) return
+
+  const userId = badgeUsersAccept.getAttribute("badge-users-accept")
+
+  if(userId == data.idB){
+    badgeUsersAccept.innerHTML = data.lengthAcceptFriend
+  }
+})
+// End SERVER_RETURN_LENGTH_ACCEPT_FRIEND

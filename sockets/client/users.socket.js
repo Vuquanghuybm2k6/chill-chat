@@ -35,6 +35,11 @@ module.exports = async (req,res) =>{
         })
       }
 
+      // Cập nhật số lượng lời mời cho B
+      const infoUserB = await User.findOne({_id: idB})
+      const lengthAcceptFriend = infoUserB.acceptFriends.length
+      socket.broadcast.emit("SERVER_RETURN_LENGTH_ACCEPT_FRIEND",({idB: idB, lengthAcceptFriend: lengthAcceptFriend}))
+
     })
      
     // A hủy gửi yêu cầu kết bạn cho B
