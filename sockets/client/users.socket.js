@@ -39,6 +39,14 @@ module.exports = async (req,res) =>{
       const infoUserB = await User.findOne({_id: idB})
       const lengthAcceptFriend = infoUserB.acceptFriends.length
       socket.broadcast.emit("SERVER_RETURN_LENGTH_ACCEPT_FRIEND",({idB: idB, lengthAcceptFriend: lengthAcceptFriend}))
+      // Lấy thông tin của A và trả về cho B
+      const infoUserA = await User.findOne({
+        _id: idA
+      }).select("id, fullName avatar")
+      socket.broadcast.emit("SERVER_RETURN_INFO_ACCEPT_FRIEND", {
+        idB: idB,
+        infoUserA: infoUserA
+      })
 
     })
      
