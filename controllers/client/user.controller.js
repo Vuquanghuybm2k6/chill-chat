@@ -43,6 +43,12 @@ module.exports.loginPost = async (req, res) => {
   else{
     if(md5(req.body.password) == user.password){
       res.cookie("tokenUser", user.tokenUser)
+      await User.updateOne({
+        _id: user.id
+      },{statusOnline:"online"})
+      _io.once('connection',(socket)=>{
+        socket.broadcast.emit("SERVER_RETURN_USER_ONLINE", user.id)
+      })
       req.flash("success", "Đăng nhập thành công")
       res.redirect("/")
     }
@@ -54,8 +60,17 @@ module.exports.loginPost = async (req, res) => {
 }
 
 // [GET]: /user/logout
-module.exports.logout = (req, res) => {
+module.exports.logout = async (req, res) => {
   res.clearCookie("tokenUser")
+  await User.updateOne(
+    {
+      _id: res.locals.user.id
+    },{
+      statusOnline:"offline"
+    })
+    _io.once('connection',(socket)=>{
+        socket.broadcast.emit("SERVER_RETURN_USER_OFFLINE", res.locals.user.id)
+      })
   res.redirect("/user/login")
 }
 
