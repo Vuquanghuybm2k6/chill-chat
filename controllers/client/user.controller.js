@@ -38,7 +38,7 @@ module.exports.loginPost = async (req, res) => {
   const user = await User.findOne({email: email, deleted: false})
   if(!user){
     req.flash("error", "Email không tồn tại")
-    res.redirect("/")
+    res.redirect("/user/login")
   }
   else{
     if(md5(req.body.password) == user.password){
