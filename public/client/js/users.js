@@ -193,3 +193,29 @@ socket.on("SERVER_RETURN_USER_OFFLINE", (userId)=>{
   }
 })
 // End SERVER_RETURN_USER_OFFLINE
+
+// Unfriend
+const buttonsUnfriend = document.querySelectorAll("[button-unfriend]")
+if(buttonsUnfriend.length>0){
+  buttonsUnfriend.forEach(button=>{
+    button.addEventListener("click",()=>{
+      const idB = button.getAttribute("button-unfriend")
+      socket.emit("CLIENT_UNFRIEND", idB)
+    })
+  })
+}
+socket.on("SERVER_RETURN_UNFRIEND", (data)=>{
+  const dataUsersUnfriend = document.querySelector("[data-users-unfriend]")
+  if(!dataUsersUnfriend) return
+  // Xóa A
+  const boxUserA = dataUsersUnfriend.querySelector(`[user-id="${data.idA}"]`)
+  if(boxUserA){
+    boxUserA.remove()
+  }
+  // Xóa B
+  const boxUserB = dataUsersUnfriend.querySelector(`[user-id="${data.idB}"]`)
+  if(boxUserB){
+    boxUserB.remove()
+  }
+})
+// End Unfriend

@@ -191,7 +191,48 @@ module.exports = async (req,res) =>{
       }
 
     })
-
-    
+    // A hủy kết bạn với B 
+    socket.on("CLIENT_UNFRIEND", async(idB)=>{
+      const existUserAInB = await User.findOne({
+        _id: idB,
+        "friendList.user_id": idA,
+        deleted: false
+      })
+      const existUserBInA = await User.findOne({
+        _id: idA,
+        "friendList.user_id": idB,
+        deleted: false
+      })
+      if(existUserAInB){
+        await User.updateOne({
+          _id: idB
+        },{
+          $pull:{
+            friendList:{
+              user_id: idA
+            }
+          }
+        })
+      }
+      if(existUserBInA){
+        await User.updateOne({
+          _id: idA
+        },{
+          $pull:{
+            friendList:{
+              user_id: idB
+            }
+          }
+        })
+      }
+      socket.emit("SERVER_RETURN_UNFRIEND", {
+        idA, 
+        idB
+      })
+      socket.broadcast.emit("SERVER_RETURN_UNFRIEND",{
+        idA, 
+        idB
+      })
+    })
   })
 }

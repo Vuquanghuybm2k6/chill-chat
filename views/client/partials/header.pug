@@ -4,7 +4,7 @@ header.header
       .col-3.align-items-center
         .inner-logo 
           a(href = "/")
-            img(src ="", alt ="Logo")
+            img(src ="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/1200px-Facebook_Messenger_logo_2020.svg.png", alt ="Logo")
       .col-5 
       .col-4
         .inner-menu 
@@ -12,6 +12,8 @@ header.header
             if(user)
               li 
                 a(href ="/") Trang chủ
+              li 
+                a(href ="/user/info") #{user.fullName}
               li 
                 a(href ="/user/logout") Đăng xuất
             else

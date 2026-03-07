@@ -9,23 +9,24 @@ block main
       .col-12 
         +box-head("Danh sách bạn bè")
     
-    .row
-      each user in users
-        .col-6(user-id = user.id)
-          div(class = "box-user")
-            div(class = "inner-avatar")
+    .row(data-users-unfriend = user.id)
+      each friend in users
+        .col-6(user-id = friend.id)
+          .box-user
+            .inner-avatar
               img(
-                src = (user.avatar?user.avatar:"https://media.dolenglish.vn/PUBLIC/MEDIA/2b2f1391-7dcd-4d41-b1eb-2273c8cd00de.jpg")
-                alt = user.fullName
+                src = (friend.avatar?friend.avatar:"https://media.dolenglish.vn/PUBLIC/MEDIA/2b2f1391-7dcd-4d41-b1eb-2273c8cd00de.jpg")
+                alt = friend.fullName
               )
-            div(class = "inner-info")
-              div(class = "inner-name") #{user.fullName}
-              div(class = "inner-buttons")
+            .inner-info
+              .inner-name #{friend.fullName}
+              .inner-buttons
                 a(
-                  href = `/chat/${user.roomChatId}`
+                  href = `/chat/${friend.roomChatId}`
                   class = "btn btn-sm btn-primary mr-1"
-                  ) Nhắn tin
-            div(
-              class = "inner-status"
-              status = user.statusOnline
-            ) <i class = "fa-solid fa-circle"></i>
+                ) Nhắn tin
+
+                button(
+                  button-unfriend = friend.id
+                  class = "btn btn-sm btn-danger mr-1"
+                ) Hủy kết bạn
