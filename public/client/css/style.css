@@ -32,7 +32,21 @@
     padding: 10px;
 } 
 /* End Footer */
+html, body {
+  height: 100%;
+  margin: 0;
+}
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* phần nội dung chính */
+.main {
+  flex: 1;
+}
 /* Show Alert */
 [show-alert] {
   position: fixed;
