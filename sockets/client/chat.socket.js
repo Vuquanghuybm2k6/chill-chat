@@ -3,7 +3,7 @@ module.exports = async (req,res) =>{
   const userId = res.locals.user.id
   const fullName = res.locals.user.fullName
   const roomChatId = req.params.roomChatId
-  _io.on('connection', (socket)=>{
+  _io.once('connection', (socket)=>{
     socket.join(roomChatId)
     socket.on("CLIENT_SEND_MESSAGE", async (content)=>{
       // Lưu vào db
