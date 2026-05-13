@@ -22,6 +22,8 @@ The project supports realtime messaging, friend management, one-on-one chat room
 
 <img width="1535" height="782" alt="image" src="https://github.com/user-attachments/assets/9abc0f91-1234-438f-9301-4f48899527d8" />
 
+## Home Page
+<img width="1534" height="823" alt="image" src="https://github.com/user-attachments/assets/0be806d2-84e9-4b0b-9ccf-8ec6c840b3c6" />
 
 ## Chat Room
 
