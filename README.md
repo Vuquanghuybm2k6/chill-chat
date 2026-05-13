@@ -11,8 +11,8 @@ The project supports realtime messaging, friend management, one-on-one chat room
 
 ### User Account
 
-* Email: [demo@gmail.com](mailto:demo@gmail.com)
-* Password: 123456
+* Email: vuquanga@gmail.com
+* Password: 1
 
 ---
 
@@ -20,15 +20,18 @@ The project supports realtime messaging, friend management, one-on-one chat room
 
 ## Login Page
 
-![Login](./screenshots/login.png)
+<img width="1535" height="782" alt="image" src="https://github.com/user-attachments/assets/9abc0f91-1234-438f-9301-4f48899527d8" />
+
 
 ## Chat Room
 
-![Chat Room](./screenshots/chat-room.png)
+<img width="1536" height="825" alt="image" src="https://github.com/user-attachments/assets/a7cb02fb-81ef-4dbe-9f2b-fab2493474e1" />
+
 
 ## Friend System
 
-![Friend System](./screenshots/friend-system.png)
+<img width="1533" height="822" alt="image" src="https://github.com/user-attachments/assets/7e53644c-2fbc-4937-b3e4-42cda31117a2" />
+
 
 ---
 
